@@ -1,3 +1,4 @@
+import { userMessages } from '@common/messages/user.messages';
 import { User } from '@domain/user/user';
 import { FindUserById } from '@domain/user/user-find-by-id';
 import {
@@ -8,6 +9,7 @@ import {
   Param,
   ParseUUIDPipe,
 } from '@nestjs/common';
+import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 
 @Controller('user')
 export class FindUserByIdController {
@@ -21,7 +23,7 @@ export class FindUserByIdController {
     if (typeof user === 'undefined')
       throw new NotFoundException({
         statusCode: HttpStatus.NOT_FOUND,
-        message: 'Usuário não encontrado',
+        message: userMessages.NOT_FOUND,
         error: 'Not Found',
       });
     return user;

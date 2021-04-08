@@ -1,5 +1,6 @@
 import { CryptoProvider } from '@common/crypto/crypto.provider';
-import { DTOValidatorMessagesService } from '@common/validators/dto-validator-message.service';
+import { MessageProvider } from '@common/messages/message.provider';
+import { userMessages } from '@common/messages/user.messages';
 import { Exclude, Expose } from 'class-transformer';
 import {
   IsEmail,
@@ -19,29 +20,46 @@ import {
   BeforeInsert,
 } from 'typeorm';
 
-const validatorMessage = new DTOValidatorMessagesService();
+const messageProvider = new MessageProvider();
 
 @Entity({ name: 'users' })
 @Unique(['email'])
 export class UserEntity extends BaseEntity {
-  @IsUUID('all', validatorMessage.isUUID('id'))
+  @IsUUID(
+    'all',
+    messageProvider.classValidatorFormat(userMessages.VALIDATION.ID.FORMAT),
+  )
   @IsOptional()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @IsNotEmpty(validatorMessage.isNotEmpty('email'))
-  @IsString(validatorMessage.isString('email'))
-  @IsEmail({}, validatorMessage.isEmail('email'))
+  @IsNotEmpty(
+    messageProvider.classValidatorFormat(
+      userMessages.VALIDATION.EMAIL.REQUIRED,
+    ),
+  )
+  @IsEmail(
+    {},
+    messageProvider.classValidatorFormat(userMessages.VALIDATION.EMAIL.FORMAT),
+  )
   @Column({ nullable: false, type: 'varchar', length: 200 })
   email: string;
 
-  @IsNotEmpty(validatorMessage.isNotEmpty('name'))
-  @IsString(validatorMessage.isString('name'))
+  @IsNotEmpty(
+    messageProvider.classValidatorFormat(userMessages.VALIDATION.NAME.REQUIRED),
+  )
+  @IsString(
+    messageProvider.classValidatorFormat(userMessages.VALIDATION.NAME.FORMAT),
+  )
   @Column({ nullable: false, type: 'varchar', length: 200 })
   name: string;
 
-  @IsNotEmpty(validatorMessage.isNotEmpty('role'))
-  @IsString(validatorMessage.isString('role'))
+  @IsNotEmpty(
+    messageProvider.classValidatorFormat(userMessages.VALIDATION.ROLE.REQUIRED),
+  )
+  @IsString(
+    messageProvider.classValidatorFormat(userMessages.VALIDATION.ROLE.FORMAT),
+  )
   @Column({ nullable: false, type: 'varchar', length: 20 })
   role: string;
 
@@ -49,8 +67,16 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: false, default: true })
   status: boolean;
 
-  @IsNotEmpty(validatorMessage.isNotEmpty('password'))
-  @IsString(validatorMessage.isString('password'))
+  @IsNotEmpty(
+    messageProvider.classValidatorFormat(
+      userMessages.VALIDATION.PASSWORD.REQUIRED,
+    ),
+  )
+  @IsString(
+    messageProvider.classValidatorFormat(
+      userMessages.VALIDATION.PASSWORD.FORMAT,
+    ),
+  )
   @Exclude({ toPlainOnly: true })
   @Column({ nullable: false, select: false })
   password: string;
