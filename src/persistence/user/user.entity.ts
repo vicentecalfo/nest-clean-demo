@@ -1,6 +1,6 @@
-import { CryptoProvider } from '@common/crypto/crypto.provider';
-import { MessageProvider } from '@common/messages/message.provider';
-import { userMessages } from '@common/messages/user.messages';
+import { CryptoProvider } from '@common/providers/crypto/crypto.provider';
+import { MessageProvider } from '@common/providers/messages/message.provider';
+import { userMessages } from '@common/providers/messages/user.messages';
 import { Exclude, Expose } from 'class-transformer';
 import {
   IsEmail,
@@ -93,9 +93,18 @@ export class UserEntity extends BaseEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @Expose({ name: 'emailConfirmed' })
+  @Column({ nullable: false, default: false })
+  email_confirmed: boolean;
+
+  @Exclude({ toPlainOnly: true })
+  @Column({ nullable: false, select: false, type: 'varchar', length: 64 })
+  email_confirmation_token: string;
+
   @BeforeInsert() async hashPassword() {
     const cryptoProvider = new CryptoProvider();
     this.salt = await cryptoProvider.generateSalt();
     this.password = await cryptoProvider.hashPassword(this.password, this.salt);
+    this.email_confirmation_token = await cryptoProvider.generateToken(32);
   }
 }

@@ -14,7 +14,7 @@ import { ControllersModule } from '@controllers/controllers.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env-dev',
+      envFilePath: '.env',
       isGlobal: true,
       load: [config],
     }),

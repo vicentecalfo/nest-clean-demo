@@ -1,0 +1,11 @@
+HTTP_PORT=xxxx
+DB_TYPE=xxxx
+DB_HOST=xxxx
+DB_PORT=xxxx
+DB_USERNAME=xxxx
+DB_PASSWORD=xxxx
+DB_NAME=xxxx
+MAIL_HOST=xxxx
+MAIL_PORT=xxxx
+MAIL_USERNAME=xxxx
+MAIL_PASSWORD=xxxx

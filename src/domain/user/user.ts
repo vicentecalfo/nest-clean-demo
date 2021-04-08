@@ -8,4 +8,6 @@ export type User = {
   salt?: string;
   createdAt?: string;
   updatedAt?: string;
+  emailConfirmed?: boolean;
+  emailConfirmationToken?: string;
 };

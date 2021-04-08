@@ -7,11 +7,12 @@ import { UserEntity } from './user.entity';
 export class UserRepository
   extends Repository<UserEntity>
   implements IUserRepository {
-  public async createUser(user: User): Promise<User> {
-    const createdUser = await this.save(this.create(user));
+  public async createUser(user: User): Promise<UserEntity> {
+    const newUser = this.create(user);
+    const createdUser = await this.save(newUser);
     return createdUser;
   }
-  public async findUserById(userId: string): Promise<User> {
+  public async findUserById(userId: string): Promise<UserEntity> {
     const user = await this.findOne(userId);
     return user;
   }
