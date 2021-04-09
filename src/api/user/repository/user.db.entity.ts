@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
   BeforeInsert,
 } from 'typeorm';
+import { UserRole } from '../user.entity';
 
 @Entity({ name: 'users' })
 @Unique(['email'])
@@ -22,8 +23,13 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: false, type: 'varchar', length: 200 })
   name: string;
 
-  @Column({ nullable: false, type: 'varchar', length: 20 })
-  role: string;
+  @Column({
+    nullable: false,
+    type: 'varchar',
+    length: 20,
+    default: UserRole.ADMIN,
+  })
+  role: UserRole;
 
   @Column({ nullable: false, default: true })
   status: boolean;

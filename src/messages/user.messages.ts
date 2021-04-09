@@ -15,7 +15,6 @@ export const userMessages = {
     },
     ROLE: {
       FORMAT: 'O tipo de usuário deve ser do tipo alfanumérico.',
-      REQUIRED: 'O tipo de usuário não foi informado.',
     },
     PASSWORD: {
       FORMAT: 'O senha do usuário deve ser do tipo alfanumérica.',
