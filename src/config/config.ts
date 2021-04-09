@@ -19,4 +19,10 @@ export const config = () => ({
       pass: process.env.MAIL_PASSWORD,
     },
   },
+  mailProvider: {
+    system: {
+      name: 'Nest Clean Demo API',
+      email: 'system@email.com',
+    },
+  },
 });

@@ -3,11 +3,16 @@ interface IEmailAddress {
   name: string;
 }
 
+export interface IEmailBody {
+  html: string;
+  text?: string;
+}
+
 export interface IEmail {
   from: IEmailAddress;
   to: IEmailAddress;
   subject: string;
-  body: string;
+  body: IEmailBody;
 }
 
 export interface IEmailSend {
@@ -18,6 +23,14 @@ export interface IEmailSend {
   html: string;
 }
 
+export interface IEmailForTemplate {
+  template: string;
+  to: IEmailAddress;
+  from: string;
+  subject: string;
+  data: Record<string, any>;
+}
+
 export interface IMailSenderProvider {
-  sendMail(email: IEmail): Promise<void>;
+  sendMail(email: IEmailForTemplate): Promise<void>;
 }

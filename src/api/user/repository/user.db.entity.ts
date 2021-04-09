@@ -52,7 +52,7 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: false, select: false, type: 'varchar', length: 64 })
   email_confirmation_token: string;
 
-  @BeforeInsert() async hashPassword() {
+  @BeforeInsert() async prepareCryptoData() {
     const cryptoProvider = new CryptoProvider();
     this.salt = await cryptoProvider.generateSalt();
     this.password = await cryptoProvider.hashPassword(this.password, this.salt);

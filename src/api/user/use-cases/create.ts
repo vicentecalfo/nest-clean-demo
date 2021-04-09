@@ -12,18 +12,19 @@ export class CreateUserUseCase {
 
   public async execute(user: User): Promise<User> {
     const createdUser = await this.userRepository.createUser(user);
-    // Resolver melhor os email enviados pela api
+    const { name, email, email_confirmation_token } = createdUser;
     this.mailSenderProvider.sendMail({
+      template: 'user-created',
+      subject: 'Bem vindo!',
+      from: 'system',
       to: {
-        name: createdUser.name,
-        email: createdUser.email,
+        name,
+        email,
       },
-      from: {
-        name: 'Codeworker Team',
-        email: 'team@codeworker.com.br',
+      data: {
+        name,
+        emailConfirmationToken: email_confirmation_token,
       },
-      subject: 'Bem vindo ao sistema',
-      body: `Você precisa confirmar seu e-mail para acessar o sistema. Token ${createdUser.email_confirmation_token}`,
     });
     return new User({ ...createdUser });
   }
