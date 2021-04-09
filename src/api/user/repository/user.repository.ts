@@ -1,8 +1,9 @@
-import { User } from '@domain/user/user';
-import { IUserRepository } from '@domain/user/user-repository.interface';
+import { Injectable } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
-import { UserEntity } from './user.entity';
-
+import { User } from '../user.entity';
+import { IUserRepository } from './user-repository.interface';
+import { UserEntity } from './user.db.entity';
+@Injectable()
 @EntityRepository(UserEntity)
 export class UserRepository
   extends Repository<UserEntity>
@@ -16,10 +17,10 @@ export class UserRepository
     const user = await this.findOne(userId);
     return user;
   }
-  updateUserById(
+  public async updateUserById(
     userId: string,
     updatedUserData: Partial<User>,
-  ): Promise<User> {
+  ): Promise<UserEntity> {
     throw new Error('Method not implemented.');
   }
 }

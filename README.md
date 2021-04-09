@@ -1,7 +1,7 @@
 # Introdução
-A aplicação foi desenvolvida usando o padrão de Arquitetura Limpa ([Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)) e DDD (Domain-driven design) .
+A aplicação foi desenvolvida usando o *framework* [NestJS](https://docs.nestjs.com/), aplicando os conceitos de Arquitetura Limpa ([Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)) e DDD (Domain-driven design).
 
-## Banco de dados
+# Banco de dados
 **O Docker é necessário para configuração do ambiente do banco de dados.**
 
 Comando para iniciar os containers: `npm run start:db`

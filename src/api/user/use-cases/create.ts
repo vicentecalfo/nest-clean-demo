@@ -1,13 +1,11 @@
 import { MailSenderProvider } from '@common/providers/email/mail-sender.provider';
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserRepository } from '@persistence/user/user.repository';
-import { User } from './user';
+import { UserRepository } from '../repository/user.repository';
+import { User } from '../user.entity';
 
 @Injectable()
-export class CreateUser {
+export class CreateUserUseCase {
   constructor(
-    @InjectRepository(UserRepository)
     private userRepository: UserRepository,
     private mailSenderProvider: MailSenderProvider,
   ) {}
@@ -27,6 +25,6 @@ export class CreateUser {
       subject: 'Bem vindo ao sistema',
       body: `Você precisa confirmar seu e-mail para acessar o sistema. Token ${createdUser.email_confirmation_token}`,
     });
-    return createdUser;
+    return new User({ ...createdUser });
   }
 }

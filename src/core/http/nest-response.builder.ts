@@ -12,12 +12,12 @@ export class NestResponseBuilder {
     return this;
   }
 
-  public headers(headers: Record<string, unknown>) {
+  public headers(headers: Record<string, string>) {
     this.response.headers = headers;
     return this;
   }
 
-  public body(body: Record<string, unknown>) {
+  public body(body: Record<string, any>) {
     this.response.body = body;
     return this;
   }

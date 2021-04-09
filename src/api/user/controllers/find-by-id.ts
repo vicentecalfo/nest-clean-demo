@@ -1,6 +1,4 @@
-import { userMessages } from '@common/providers/messages/user.messages';
-import { User } from '@domain/user/user';
-import { FindUserById } from '@domain/user/user-find-by-id';
+import { userMessages } from '@messages/user.messages';
 import {
   Controller,
   Get,
@@ -9,16 +7,18 @@ import {
   Param,
   ParseUUIDPipe,
 } from '@nestjs/common';
+import { FindUserByIdUseCase } from '../use-cases/find-by-id';
+import { User } from '../user.entity';
 
 @Controller('user')
 export class FindUserByIdController {
-  constructor(private readonly findUserById: FindUserById) {}
+  constructor(private findUserByIdUseCase: FindUserByIdUseCase) {}
 
   @Get(':userId')
   public async findById(
     @Param('userId', new ParseUUIDPipe()) userId: string,
   ): Promise<User> {
-    const user = await this.findUserById.execute(userId);
+    const user = await this.findUserByIdUseCase.execute(userId);
     if (typeof user === 'undefined')
       throw new NotFoundException({
         statusCode: HttpStatus.NOT_FOUND,
