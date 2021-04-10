@@ -8,7 +8,7 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { FindUserByIdUseCase } from '../use-cases/find-by-id';
-import { User } from '../user.entity';
+import { User } from '../user';
 
 @Controller('user')
 export class FindUserByIdController {

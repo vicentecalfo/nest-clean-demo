@@ -1,11 +1,7 @@
-import { User } from '../user.entity';
-import { UserEntity } from './user.db.entity';
+import { User } from '../user';
 
 export interface IUserRepository {
-  createUser(user: User): Promise<UserEntity>;
-  findUserById(userId: string): Promise<UserEntity>;
-  updateUserById(
-    userId: string,
-    updatedUserData: Partial<User>,
-  ): Promise<UserEntity>;
+  createUser(user: User): Promise<User>;
+  findUserById(userId: string): Promise<User>;
+  updateUserById(userId: string, updatedUserData: Partial<User>): Promise<User>;
 }

@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { EntityRepository, Repository } from 'typeorm';
-import { User } from '../user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserAdapter } from '../adapters/user.adapter';
+import { User } from '../user';
 import { IUserRepository } from './user-repository.interface';
-import { UserEntity } from './user.db.entity';
+import { UserEntity } from './user.entity';
 @Injectable()
-@EntityRepository(UserEntity)
-export class UserRepository
-  extends Repository<UserEntity>
-  implements IUserRepository {
-  public async createUser(user: User): Promise<UserEntity> {
-    const newUser = this.create(user);
-    const createdUser = await this.save(newUser);
-    return createdUser;
+export class UserRepository implements IUserRepository {
+  constructor(
+    @InjectRepository(UserEntity)
+    private repository: Repository<UserEntity>,
+    private userAdapter: UserAdapter,
+  ) {}
+  public async createUser(user: User): Promise<User> {
+    const newUser = this.repository.create(user);
+    const createdUser = await this.repository.save(newUser);
+    return this.userAdapter.create(createdUser);
   }
-  public async findUserById(userId: string): Promise<UserEntity> {
-    const user = await this.findOne(userId);
-    return user;
+  public async findUserById(userId: string): Promise<User> {
+    const user = await this.repository.findOne(userId);
+    return this.userAdapter.create(user);
   }
   public async updateUserById(
     userId: string,
     updatedUserData: Partial<User>,
-  ): Promise<UserEntity> {
+  ): Promise<User> {
     throw new Error('Method not implemented.');
   }
 }

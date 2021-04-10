@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
   BeforeInsert,
 } from 'typeorm';
-import { UserRole } from '../user.entity';
+import { UserRole } from '../user';
 
 @Entity({ name: 'users' })
 @Unique(['email'])
@@ -40,22 +40,28 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: false, select: false })
   salt: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
-  @Column({ nullable: false, default: false })
-  email_confirmed: boolean;
+  @Column({ nullable: false, default: false, name: 'email_confirmed' })
+  emailConfirmed: boolean;
 
-  @Column({ nullable: false, select: false, type: 'varchar', length: 64 })
-  email_confirmation_token: string;
+  @Column({
+    nullable: false,
+    select: false,
+    type: 'varchar',
+    length: 64,
+    name: 'email_confirmation_token',
+  })
+  emailConfirmationToken: string;
 
   @BeforeInsert() async prepareCryptoData() {
     const cryptoProvider = new CryptoProvider();
     this.salt = await cryptoProvider.generateSalt();
     this.password = await cryptoProvider.hashPassword(this.password, this.salt);
-    this.email_confirmation_token = await cryptoProvider.generateToken(32);
+    this.emailConfirmationToken = await cryptoProvider.generateToken(32);
   }
 }

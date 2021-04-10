@@ -1,7 +1,7 @@
 import { MailSenderProvider } from '@common/providers/email/mail-sender.provider';
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../repository/user.repository';
-import { User } from '../user.entity';
+import { User } from '../user';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -12,7 +12,7 @@ export class CreateUserUseCase {
 
   public async execute(user: User): Promise<User> {
     const createdUser = await this.userRepository.createUser(user);
-    const { name, email, email_confirmation_token } = createdUser;
+    const { name, email, emailConfirmationToken } = createdUser;
     this.mailSenderProvider.sendMail({
       template: 'user-created',
       subject: 'Bem vindo!',
@@ -23,9 +23,9 @@ export class CreateUserUseCase {
       },
       data: {
         name,
-        emailConfirmationToken: email_confirmation_token,
+        emailConfirmationToken,
       },
     });
-    return new User({ ...createdUser });
+    return createdUser;
   }
 }

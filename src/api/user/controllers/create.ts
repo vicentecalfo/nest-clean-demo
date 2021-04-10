@@ -2,7 +2,7 @@ import { NestResponse } from '@core/http/nest-response';
 import { NestResponseBuilder } from '@core/http/nest-response.builder';
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { CreateUserUseCase } from '../use-cases/create';
-import { User } from '../user.entity';
+import { User } from '../user';
 
 @Controller('user')
 export class CreateUserController {
