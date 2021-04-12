@@ -10,7 +10,7 @@ import {
 import { FindUserByIdUseCase } from '../use-cases/find-by-id';
 import { User } from '../user';
 
-@Controller('user')
+@Controller('users')
 export class FindUserByIdController {
   constructor(private findUserByIdUseCase: FindUserByIdUseCase) {}
 

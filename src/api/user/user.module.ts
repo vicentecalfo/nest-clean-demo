@@ -1,7 +1,6 @@
 import { MailSenderProvider } from '@common/providers/email/mail-sender.provider';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserAdapter } from './adapters/user.adapter';
 import { CreateUserController } from './controllers/create';
 import { FindUserByIdController } from './controllers/find-by-id';
 import { UserEntity } from './repository/user.entity';
@@ -12,6 +11,6 @@ const useCases = [CreateUserUseCase, FindUserByIdUseCase];
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],
   controllers: [CreateUserController, FindUserByIdController],
-  providers: [MailSenderProvider, ...useCases, UserRepository, UserAdapter],
+  providers: [MailSenderProvider, ...useCases, UserRepository],
 })
 export class UserModule {}
