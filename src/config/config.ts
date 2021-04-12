@@ -9,7 +9,7 @@ export const config = () => ({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: ['dist/**/*.entity.js'],
+    entities: [__dirname + '/../**/*.entity.{js,ts}'],
   },
   mail: {
     host: process.env.MAIL_HOST,

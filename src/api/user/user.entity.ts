@@ -1,4 +1,5 @@
 import { CryptoProvider } from '@common/providers/crypto/crypto.provider';
+import { Exclude } from 'class-transformer';
 import {
   BaseEntity,
   Entity,
@@ -9,11 +10,14 @@ import {
   UpdateDateColumn,
   BeforeInsert,
 } from 'typeorm';
-import { UserRole } from '../user';
 
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
 @Entity({ name: 'users' })
 @Unique(['email'])
-export class UserEntity extends BaseEntity {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -35,9 +39,11 @@ export class UserEntity extends BaseEntity {
   status: boolean;
 
   @Column({ nullable: false, select: false })
+  @Exclude({ toPlainOnly: true })
   password: string;
 
   @Column({ nullable: false, select: false })
+  @Exclude({ toPlainOnly: true })
   salt: string;
 
   @CreateDateColumn({ name: 'created_at' })
@@ -57,6 +63,13 @@ export class UserEntity extends BaseEntity {
     name: 'email_confirmation_token',
   })
   emailConfirmationToken: string;
+
+  // resolver isso de 48horas
+  @CreateDateColumn({
+    nullable: false,
+    name: 'date_email_confirmation_token',
+  })
+  dateEmailConfirmationToken: Date;
 
   @BeforeInsert() async prepareCryptoData() {
     const cryptoProvider = new CryptoProvider();
