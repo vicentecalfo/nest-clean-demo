@@ -1,5 +1,5 @@
 import { userMessages } from '@messages/user.messages';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { Equals, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { User } from '../user.entity';
 export class CreateUserResquestDTO {
   @IsNotEmpty({ message: userMessages.VALIDATION.EMAIL.REQUIRED })
@@ -13,6 +13,11 @@ export class CreateUserResquestDTO {
   @IsNotEmpty({ message: userMessages.VALIDATION.PASSWORD.REQUIRED })
   @IsString({ message: userMessages.VALIDATION.PASSWORD.FORMAT })
   public readonly password: string;
+
+  @IsNotEmpty({
+    message: userMessages.VALIDATION.PASSWORD_CONFIRMATION.REQUIRED,
+  })
+  public readonly passwordConfirmation: string;
 
   constructor(props: Partial<User>) {
     Object.assign(this, props);

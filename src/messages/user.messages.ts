@@ -22,5 +22,9 @@ export const userMessages = {
       FORMAT: 'O senha do usuário deve ser do tipo alfanumérica.',
       REQUIRED: 'O senha de usuário não foi informada.',
     },
+    PASSWORD_CONFIRMATION: {
+      REQUIRED: 'A confirmação de senha deve ser informada.',
+      NOT_EQUAL: 'A senha e a confirmação de senha não são iguais.',
+    },
   },
 };
