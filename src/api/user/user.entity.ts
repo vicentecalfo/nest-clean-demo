@@ -7,9 +7,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
   BeforeInsert,
-  AfterInsert,
 } from 'typeorm';
 
 export enum UserRole {

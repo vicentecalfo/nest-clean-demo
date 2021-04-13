@@ -21,6 +21,10 @@ export const userMessages = {
     PASSWORD: {
       FORMAT: 'O senha do usuário deve ser do tipo alfanumérica.',
       REQUIRED: 'O senha de usuário não foi informada.',
+      WEAK:
+        'A senha escolhida deve conter ao menos uma letra minúscula, uma letra maiúscula, um número e um caractere especial. ',
+      MIN: 'A senha deve conter ao menos 8 caracteres.',
+      MAX: 'A senha deve conter no máximo 16 caracteres.',
     },
     PASSWORD_CONFIRMATION: {
       REQUIRED: 'A confirmação de senha deve ser informada.',
