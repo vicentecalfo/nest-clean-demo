@@ -19,11 +19,9 @@ export function InputEqualsTo(
         validate(value: any, args: ValidationArguments) {
           const [relatedPropertyName] = args.constraints;
           const relatedValue = (args.object as any)[relatedPropertyName];
-          return (
-            typeof value === 'string' &&
-            typeof relatedValue === 'string' &&
-            value === relatedValue
-          );
+          const valueTypeOf = typeof value;
+          const relatedTypeOf = typeof relatedValue;
+          return valueTypeOf === relatedTypeOf && value === relatedValue;
         },
       },
     });
