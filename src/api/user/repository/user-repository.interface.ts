@@ -6,7 +6,7 @@ export interface IUserRepository {
     userId: Pick<User, 'id'>,
     updatedUserData: Partial<User>,
   ): Promise<User>;
-  deleteUserById(userId: string): Promise<Partial<User>>;
+  deleteUserById(userId: string): Promise<User>;
   findUserById(userId: string): Promise<User>;
   emailAlreadyInUse(email: Pick<User, 'email'>): Promise<boolean>;
 }

@@ -41,6 +41,7 @@ export class UserRepository
   public async deleteUserById(userId: string): Promise<any> {
     try {
       const result = await this.delete(userId);
+      console.log(`deletei ${result}`);
       return result;
     } catch (error) {
       throw new UnableToConnectDBError();

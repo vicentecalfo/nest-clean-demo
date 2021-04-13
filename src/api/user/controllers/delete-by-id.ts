@@ -1,3 +1,5 @@
+import { NestResponse } from '@core/http/nest-response';
+import { NestResponseBuilder } from '@core/http/nest-response.builder';
 import {
   Controller,
   Delete,
@@ -22,9 +24,13 @@ export class DeleteUserByIdController {
       }),
     )
     userId: string,
-  ): Promise<any> {
+  ): Promise<NestResponse> {
     try {
-      await this.deleteUserByIdUseCase.execute(userId);
+      const deletedUser = await this.deleteUserByIdUseCase.execute(userId);
+      return new NestResponseBuilder()
+        .status(HttpStatus.OK)
+        .body(deletedUser)
+        .build();
     } catch (error) {
       if (error instanceof UserNotFoundError) {
         throw new NotFoundException({
