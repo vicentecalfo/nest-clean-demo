@@ -1,3 +1,4 @@
+import { UnableToConnectDBError } from '@common/errors/unable-to-connect-db.error';
 import { NestResponse } from '@core/http/nest-response';
 import { NestResponseBuilder } from '@core/http/nest-response.builder';
 import {
@@ -7,6 +8,7 @@ import {
   NotFoundException,
   Param,
   ParseUUIDPipe,
+  ServiceUnavailableException,
 } from '@nestjs/common';
 import { UserNotFoundError } from '../errors/user-not-found.error';
 import { DeleteUserByIdUseCase } from '../use-cases/delete-by-id';
@@ -35,6 +37,12 @@ export class DeleteUserByIdController {
       if (error instanceof UserNotFoundError) {
         throw new NotFoundException({
           statusCode: HttpStatus.NOT_FOUND,
+          message: error.message,
+        });
+      }
+      if (error instanceof UnableToConnectDBError) {
+        throw new ServiceUnavailableException({
+          statusCode: HttpStatus.SERVICE_UNAVAILABLE,
           message: error.message,
         });
       }
