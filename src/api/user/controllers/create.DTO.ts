@@ -9,7 +9,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { User } from '../user.entity';
-export class CreateUserResquestDTO {
+export class CreateUserRequestDTO {
   @IsNotEmpty({ message: userMessages.VALIDATION.EMAIL.REQUIRED })
   @IsEmail({}, { message: userMessages.VALIDATION.EMAIL.FORMAT })
   public readonly email: string;

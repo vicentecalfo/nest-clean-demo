@@ -11,7 +11,7 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { CreateUserUseCase } from '../use-cases/create';
-import { CreateUserResquestDTO } from './create.DTO';
+import { CreateUserRequestDTO } from './create.DTO';
 
 @Controller('users')
 export class CreateUserController {
@@ -19,7 +19,7 @@ export class CreateUserController {
 
   @Post()
   public async create(
-    @Body() user: CreateUserResquestDTO,
+    @Body() user: CreateUserRequestDTO,
   ): Promise<NestResponse> {
     try {
       const createdUser = await this.createUserUseCase.execute(user);
