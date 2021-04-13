@@ -1,5 +1,6 @@
+import { InputEqualsTo } from '@common/validators/input-equals-to.validator';
 import { userMessages } from '@messages/user.messages';
-import { Equals, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { User } from '../user.entity';
 export class CreateUserResquestDTO {
   @IsNotEmpty({ message: userMessages.VALIDATION.EMAIL.REQUIRED })
@@ -16,6 +17,9 @@ export class CreateUserResquestDTO {
 
   @IsNotEmpty({
     message: userMessages.VALIDATION.PASSWORD_CONFIRMATION.REQUIRED,
+  })
+  @InputEqualsTo('password', {
+    message: userMessages.VALIDATION.PASSWORD_CONFIRMATION.NOT_EQUAL,
   })
   public readonly passwordConfirmation: string;
 
