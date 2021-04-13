@@ -1,5 +1,4 @@
 import { InputEqualsTo } from '@common/validators/input-equals-to.validator';
-import { userMessages } from '@messages/user.messages';
 import {
   IsEmail,
   IsNotEmpty,
@@ -9,6 +8,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { User } from '../user.entity';
+import { userMessages } from '../user.messages';
 export class CreateUserRequestDTO {
   @IsNotEmpty({ message: userMessages.VALIDATION.EMAIL.REQUIRED })
   @IsEmail({}, { message: userMessages.VALIDATION.EMAIL.FORMAT })

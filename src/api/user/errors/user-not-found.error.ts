@@ -1,4 +1,4 @@
-import { userMessages } from '@messages/user.messages';
+import { userMessages } from '../user.messages';
 
 export class UserNotFoundError extends Error {
   constructor(message?: string) {

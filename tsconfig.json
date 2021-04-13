@@ -17,7 +17,7 @@
       "@common/*": ["./src/common/*"],
       "@config/*": ["./src/config/*"],
       "@core/*": ["./src/core/*"],
-      "@messages/*": ["./src/messages/*"]
+      "@messages/*": ["src/common/messages/*"]
     }
   }
 }

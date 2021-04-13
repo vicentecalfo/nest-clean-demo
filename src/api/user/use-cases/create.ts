@@ -3,7 +3,7 @@ import { UserRepository } from '../repository/user.repository';
 import { User } from '../user.entity';
 import { UserMailProvider } from '../providers/user-mail.provider';
 import { ConstraintViolationError } from '@common/errors/constraint-violation.error';
-import { userMessages } from '@messages/user.messages';
+import { userMessages } from '../user.messages';
 
 @Injectable()
 export class CreateUserUseCase {

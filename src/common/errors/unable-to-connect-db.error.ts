@@ -1,4 +1,4 @@
-import { dbMessages } from '@messages/db.messages';
+import { dbMessages } from '@common/messages/db.messages';
 
 export class UnableToConnectDBError extends Error {
   constructor(message?: string) {
