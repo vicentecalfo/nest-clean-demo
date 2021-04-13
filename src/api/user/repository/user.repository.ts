@@ -38,6 +38,15 @@ export class UserRepository
     }
   }
 
+  public async deleteUserById(userId: string): Promise<any> {
+    try {
+      const result = await this.delete(userId);
+      return result;
+    } catch (error) {
+      throw new UnableToConnectDBError();
+    }
+  }
+
   public async updateUserById(
     userId: Pick<User, 'id'>,
     updatedUserData: Partial<User>,

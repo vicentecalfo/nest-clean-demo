@@ -1,21 +1,20 @@
 import {
   Controller,
-  Get,
+  Delete,
   HttpStatus,
   NotFoundException,
   Param,
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { UserNotFoundError } from '../errors/user-not-found.error';
-import { FindUserByIdUseCase } from '../use-cases/find-by-id';
-import { User } from '../user.entity';
+import { DeleteUserByIdUseCase } from '../use-cases/delete-by-id';
 
 @Controller('users')
-export class FindUserByIdController {
-  constructor(private findUserByIdUseCase: FindUserByIdUseCase) {}
+export class DeleteUserByIdController {
+  constructor(private deleteUserByIdUseCase: DeleteUserByIdUseCase) {}
 
-  @Get(':userId')
-  public async findById(
+  @Delete(':userId')
+  public async deleteById(
     @Param(
       'userId',
       new ParseUUIDPipe({
@@ -23,10 +22,9 @@ export class FindUserByIdController {
       }),
     )
     userId: string,
-  ): Promise<User> {
+  ): Promise<any> {
     try {
-      const user = await this.findUserByIdUseCase.execute(userId);
-      return user;
+      await this.deleteUserByIdUseCase.execute(userId);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
         throw new NotFoundException({

@@ -8,13 +8,23 @@ import { UserRepository } from './repository/user.repository';
 import { CreateUserUseCase } from './use-cases/create';
 import { FindUserByIdUseCase } from './use-cases/find-by-id';
 import { UserMailProvider } from './providers/user-mail.provider';
+import { DeleteUserByIdController } from './controllers/delete-by-id';
+import { DeleteUserByIdUseCase } from './use-cases/delete-by-id';
 
-const useCases = [CreateUserUseCase, FindUserByIdUseCase];
+const useCases = [
+  CreateUserUseCase,
+  FindUserByIdUseCase,
+  DeleteUserByIdUseCase,
+];
 const validators = [];
 const providers = [MailSenderProvider, CryptoProvider];
 @Module({
   imports: [TypeOrmModule.forFeature([UserRepository])],
-  controllers: [CreateUserController, FindUserByIdController],
+  controllers: [
+    CreateUserController,
+    FindUserByIdController,
+    DeleteUserByIdController,
+  ],
   providers: [UserMailProvider, ...providers, ...validators, ...useCases],
 })
 export class UserModule {}
