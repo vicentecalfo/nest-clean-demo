@@ -16,7 +16,13 @@ export class FindUserByIdController {
 
   @Get(':userId')
   public async findById(
-    @Param('userId', new ParseUUIDPipe()) userId: string,
+    @Param(
+      'userId',
+      new ParseUUIDPipe({
+        errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE,
+      }),
+    )
+    userId: string,
   ): Promise<User> {
     const user = await this.findUserByIdUseCase.execute(userId);
     if (typeof user === 'undefined')

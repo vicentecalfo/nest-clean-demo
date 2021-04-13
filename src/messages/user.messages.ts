@@ -1,4 +1,5 @@
 export const userMessages = {
+  EMAIL_ALREADY_IN_USE: 'O e-mail informado já está me uso.',
   NOT_FOUND: 'Usuário não encontrado.',
   VALIDATION: {
     ID: {
@@ -8,6 +9,7 @@ export const userMessages = {
     EMAIL: {
       FORMAT: 'O e-mail do usuário informado não é válido.',
       REQUIRED: 'O e-mail do usuário não foi informado.',
+      ALREADY_IN_USE: 'O e-mail informado já está me uso.',
     },
     NAME: {
       FORMAT: 'O nome do usuário deve ser do tipo alfanumérico.',

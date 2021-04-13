@@ -62,6 +62,7 @@ export class User extends BaseEntity {
     length: 64,
     name: 'email_confirmation_token',
   })
+  @Exclude({ toPlainOnly: true })
   emailConfirmationToken: string;
 
   // resolver isso de 48horas
@@ -75,6 +76,6 @@ export class User extends BaseEntity {
     const cryptoProvider = new CryptoProvider();
     this.salt = await cryptoProvider.generateSalt();
     this.password = await cryptoProvider.hashPassword(this.password, this.salt);
-    this.emailConfirmationToken = await cryptoProvider.generateToken(32);
+    this.emailConfirmationToken = await cryptoProvider.generateToken();
   }
 }

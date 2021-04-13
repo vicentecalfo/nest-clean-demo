@@ -1,7 +1,6 @@
 import { userMessages } from '@messages/user.messages';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { User } from '../user.entity';
-
 export class CreateUserResquestDTO {
   @IsNotEmpty({ message: userMessages.VALIDATION.EMAIL.REQUIRED })
   @IsEmail({}, { message: userMessages.VALIDATION.EMAIL.FORMAT })
