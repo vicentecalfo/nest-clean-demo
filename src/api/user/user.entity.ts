@@ -9,6 +9,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  AfterInsert,
 } from 'typeorm';
 
 export enum UserRole {
@@ -46,10 +47,10 @@ export class User extends BaseEntity {
   @Exclude({ toPlainOnly: true })
   salt: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @Column({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @Column({ name: 'updated_at' })
   updatedAt: Date;
 
   @Column({ nullable: false, default: false, name: 'email_confirmed' })
@@ -65,17 +66,25 @@ export class User extends BaseEntity {
   @Exclude({ toPlainOnly: true })
   emailConfirmationToken: string;
 
-  // resolver isso de 48horas
   @CreateDateColumn({
     nullable: false,
-    name: 'date_email_confirmation_token',
+    name: 'expiry_date_email_confirmation_token',
   })
-  dateEmailConfirmationToken: Date;
+  expiryDateEmailConfirmationToken: Date;
 
-  @BeforeInsert() async prepareCryptoData() {
+  @BeforeInsert() async prepareCreateUserDefaultData() {
     const cryptoProvider = new CryptoProvider();
     this.salt = await cryptoProvider.generateSalt();
     this.password = await cryptoProvider.hashPassword(this.password, this.salt);
     this.emailConfirmationToken = await cryptoProvider.generateToken();
+    this.expiryDateEmailConfirmationToken = this.getExpiryDateEmailConfirmationToken;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
+
+  get getExpiryDateEmailConfirmationToken(): Date {
+    const date = new Date();
+    date.setHours(date.getHours() + 48);
+    return date;
   }
 }

@@ -2,7 +2,6 @@
 **Trabalho em desenvolvimento!**
 
 A aplicação desenvolvida usando o *framework* [NestJS](https://docs.nestjs.com/).
-
 # Banco de dados
 **O Docker é necessário para configuração do ambiente do banco de dados.**
 
