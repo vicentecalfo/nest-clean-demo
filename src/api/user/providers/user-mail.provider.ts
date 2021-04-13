@@ -4,6 +4,7 @@ import { User } from '../user.entity';
 
 @Injectable()
 export class UserMailProvider {
+  private readonly templatePath = 'api/user/templates/email/';
   constructor(private mailSenderProvider: MailSenderProvider) {}
 
   public sendToNewUser({
@@ -12,7 +13,7 @@ export class UserMailProvider {
     emailConfirmationToken,
   }: Partial<User>): void {
     this.mailSenderProvider.sendMail({
-      template: 'user-created',
+      template: `${this.templatePath}user-created`,
       subject: 'Bem vindo!',
       from: 'system',
       to: {
@@ -28,7 +29,7 @@ export class UserMailProvider {
 
   public sendToDeletedUser({ name, email }: Partial<User>): void {
     this.mailSenderProvider.sendMail({
-      template: 'user-deleted',
+      template: `${this.templatePath}user-deleted`,
       subject: 'Foi bom enquanto durou...',
       from: 'system',
       to: {

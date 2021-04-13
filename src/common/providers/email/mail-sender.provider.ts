@@ -34,7 +34,7 @@ export class MailSenderProvider implements IMailSenderProvider {
     template: string,
     data: Record<string, any>,
   ): Promise<IEmailBody> {
-    const templatePath = './src/common/providers/email/templates/';
+    const templatePath = './src/';
     const html = await fs.promises.readFile(
       join(process.cwd(), templatePath, `${template}.html.ejs`),
       'utf-8',
