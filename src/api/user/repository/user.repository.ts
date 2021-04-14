@@ -10,39 +10,23 @@ export class UserRepository
     super();
   }
   public async createUser(user: Partial<User>): Promise<User> {
-    try {
-      const newUser = this.create(user);
-      const createdUser = await this.save(newUser);
-      return createdUser;
-    } catch (error) {
-      throw new UnableToConnectDBError();
-    }
+    const newUser = this.create(user);
+    const createdUser = await this.save(newUser);
+    return createdUser;
   }
 
   public async emailAlreadyInUse({ email }: Partial<User>): Promise<boolean> {
-    try {
-      const users = await this.find({ where: { email } });
-      return users.length > 0;
-    } catch (error) {
-      throw new UnableToConnectDBError();
-    }
+    const users = await this.find({ where: { email } });
+    return users.length > 0;
   }
 
   public async findUserById(userId: string): Promise<User> {
-    try {
-      const user = await this.findOne(userId);
-      return user;
-    } catch (error) {
-      throw new UnableToConnectDBError();
-    }
+    const user = await this.findOne(userId);
+    return user;
   }
 
   public async deleteUserById(userId: string): Promise<any> {
-    try {
-      await this.delete(userId);
-    } catch (error) {
-      throw new UnableToConnectDBError();
-    }
+    await this.delete(userId);
   }
 
   public async updateUserById(
