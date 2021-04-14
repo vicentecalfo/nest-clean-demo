@@ -23,7 +23,7 @@ export class ExceptionHttpFilter implements ExceptionFilter {
             status: exception.getStatus(),
             body: exception.getResponse(),
           }
-        : getException(exception);
+        : getException(exception, request.path);
     this.httpAdapter.reply(response, body, status);
   }
 }

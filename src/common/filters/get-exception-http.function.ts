@@ -31,13 +31,13 @@ function buildGenericError(message, path) {
   }
 }
 
-export function getException(exception) {
+export function getException(exception: Error, path: string) {
   const exceptionName = exception.constructor.name;
   const message = exception.message;
   const exceptions = {
     NotFoundError: buildException('NOT_FOUND', message),
     ConstraintViolationError: buildException('CONFLICT', message),
-    Error: buildGenericError(message, exception.path),
+    Error: buildGenericError(message, path),
   };
   return exceptions.hasOwnProperty(exceptionName)
     ? exceptions[exceptionName]
