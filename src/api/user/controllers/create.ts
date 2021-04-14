@@ -21,28 +21,13 @@ export class CreateUserController {
   public async create(
     @Body() user: CreateUserRequestDTO,
   ): Promise<NestResponse> {
-    try {
-      const createdUser = await this.createUserUseCase.execute(user);
-      return new NestResponseBuilder()
-        .status(HttpStatus.CREATED)
-        .headers({
-          Location: `/users/${createdUser.id}`,
-        })
-        .body(createdUser)
-        .build();
-    } catch (error) {
-      if (error instanceof ConstraintViolationError) {
-        throw new ConflictException({
-          statusCode: HttpStatus.CONFLICT,
-          message: error.message,
-        });
-      }
-      if (error instanceof UnableToConnectDBError) {
-        throw new ServiceUnavailableException({
-          statusCode: HttpStatus.SERVICE_UNAVAILABLE,
-          message: error.message,
-        });
-      }
-    }
+    const createdUser = await this.createUserUseCase.execute(user);
+    return new NestResponseBuilder()
+      .status(HttpStatus.CREATED)
+      .headers({
+        Location: `/users/${createdUser.id}`,
+      })
+      .body(createdUser)
+      .build();
   }
 }

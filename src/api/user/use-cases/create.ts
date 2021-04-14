@@ -16,10 +16,6 @@ export class CreateUserUseCase {
     const emailAlreadyInUse = await this.userRepository.emailAlreadyInUse({
       email: user.email,
     });
-    /**
-     * Poderia ter testado com o decorators no DTO, mas preferi ter controle
-     * do status http 409 Conflict e não usar o padrão de 400 para Bad Request
-     **/
     if (emailAlreadyInUse)
       throw new ConstraintViolationError(userMessages.EMAIL_ALREADY_IN_USE);
     const createdUser = await this.userRepository.createUser(user);
