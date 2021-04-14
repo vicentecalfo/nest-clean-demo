@@ -1,4 +1,3 @@
-//import { UnableToConnectDBError } from '@common/errors/unable-to-connect-db.error';
 import { NestResponse } from '@core/http/nest-response';
 import { NestResponseBuilder } from '@core/http/nest-response.builder';
 import {

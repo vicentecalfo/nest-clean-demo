@@ -1,6 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { IUserRepository } from './user-repository.interface';
-import { UnableToConnectDBError } from '@common/errors/unable-to-connect-db.error';
 import { User } from '../user.entity';
 @EntityRepository(User)
 export class UserRepository

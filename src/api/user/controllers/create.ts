@@ -1,15 +1,6 @@
-import { ConstraintViolationError } from '@common/errors/constraint-violation.error';
-import { UnableToConnectDBError } from '@common/errors/unable-to-connect-db.error';
 import { NestResponse } from '@core/http/nest-response';
 import { NestResponseBuilder } from '@core/http/nest-response.builder';
-import {
-  Body,
-  ConflictException,
-  Controller,
-  HttpStatus,
-  Post,
-  ServiceUnavailableException,
-} from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { CreateUserUseCase } from '../use-cases/create';
 import { CreateUserRequestDTO } from './create.DTO';
 
