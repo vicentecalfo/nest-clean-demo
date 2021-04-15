@@ -9,11 +9,6 @@ import {
   CreateDateColumn,
   BeforeInsert,
 } from 'typeorm';
-
-export enum UserRole {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
-}
 @Entity({ name: 'users' })
 @Unique(['email'])
 export class User extends BaseEntity {
@@ -25,14 +20,6 @@ export class User extends BaseEntity {
 
   @Column({ nullable: false, type: 'varchar', length: 200 })
   name: string;
-
-  @Column({
-    nullable: false,
-    type: 'varchar',
-    length: 20,
-    default: UserRole.ADMIN,
-  })
-  role: UserRole;
 
   @Column({ nullable: false, default: true })
   status: boolean;

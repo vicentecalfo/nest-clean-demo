@@ -65,6 +65,7 @@ export class MailSenderProvider implements IMailSenderProvider {
       });
       this.transporter.sendMail(formattedEmail);
     } catch (error) {
+      // pensar no que fazer quando o envio falhar
       console.log(error);
     }
   }
